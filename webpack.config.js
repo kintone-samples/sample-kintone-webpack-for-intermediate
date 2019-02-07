@@ -4,7 +4,8 @@ module.exports = {
   mode: "development",
   entry: {
       'polyfill': '@babel/polyfill',
-      'kintone-create-edit-show': './src/kintone-create-edit-show.js'
+      'kintone-create-edit-show': './src/kintone-create-edit-show.js',
+      'kintone-create-edit-submit': './src/kintone-create-edit-submit.js'
   },
   module: {
     rules: [
