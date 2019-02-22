@@ -31,6 +31,6 @@
     "webpack-dev-server": "^3.1.14"
   },
   "dependencies": {
-    "v8n": "^1.2.3"
+    "moji": "^0.5.1"
   }
 }

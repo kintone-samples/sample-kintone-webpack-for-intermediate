@@ -1,4 +1,4 @@
-import {isEmpty} from "./empty-validator";
+import {zenkakuToHankaku} from "./hankaku";
 
 (() => {
     const events = [
@@ -6,8 +6,8 @@ import {isEmpty} from "./empty-validator";
         "app.record.edit.submit"
     ];
     kintone.events.on(events, (ev) => {
-        if(isEmpty.test(ev.record.文字列__1行_.value)) {
-            ev.record.文字列__1行_.error = "必須項目です！";
+        if(ev.record.文字列__1行_.value) {
+            ev.record.文字列__1行_.value = zenkakuToHankaku(ev.record.文字列__1行_.value);
         }
         return ev;
     });
