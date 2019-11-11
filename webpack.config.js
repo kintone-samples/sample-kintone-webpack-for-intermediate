@@ -1,22 +1,33 @@
-const path = require('path');
+const path = require("path");
+const glob = require("glob");
+
+const basePath = "./src";
+
+// basePath配下の各ディレクトリを複数のentryとする
+const entries = glob.sync("**/index.js", { cwd: basePath }).reduce(
+  (prev, file) => ({
+    ...prev,
+    [path.dirname(file)]: path.resolve(basePath, file)
+  }),
+  {}
+);
 
 module.exports = {
-  entry: {
-      'polyfill': '@babel/polyfill',
-      'kintone-create-edit-show': './src/kintone-create-edit-show.js',
-      'kintone-create-edit-submit': './src/kintone-create-edit-submit.js'
-  },
+  entry: entries,
   module: {
     rules: [
       {
         test: /\.m?js$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',
+          loader: "babel-loader",
           options: {
             presets: [
               [
                 "@babel/preset-env",
+                {
+                  useBuiltIns: "usage"
+                }
               ]
             ]
           }
@@ -25,10 +36,10 @@ module.exports = {
     ]
   },
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: '[name].js'
+    path: path.resolve(__dirname, "dist"),
+    filename: "[name].js"
   },
   externals: {
-    jquery: 'jQuery'
+    jquery: "jQuery"
   }
 };
