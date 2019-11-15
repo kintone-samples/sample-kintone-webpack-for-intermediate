@@ -1,7 +1,7 @@
 const path = require("path");
 const glob = require("glob");
 
-const basePath = "./src";
+const basePath = path.resolve("src", "apps");
 
 // basePath配下の各ディレクトリを複数のentryとする
 const entries = glob.sync("**/index.js", { cwd: basePath }).reduce(
