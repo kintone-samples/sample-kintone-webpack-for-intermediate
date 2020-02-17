@@ -1,10 +1,10 @@
-const path = require("path");
-const glob = require("glob");
+const path = require('path');
+const glob = require('glob');
 
-const basePath = path.resolve("src", "apps");
+const basePath = path.resolve('src', 'apps');
 
 // basePath配下の各ディレクトリを複数のentryとする
-const entries = glob.sync("**/index.js", { cwd: basePath }).reduce(
+const entries = glob.sync('**/index.js', {cwd: basePath}).reduce(
   (prev, file) => ({
     ...prev,
     [path.dirname(file)]: path.resolve(basePath, file)
@@ -20,13 +20,14 @@ module.exports = {
         test: /\.m?js$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
           options: {
             presets: [
               [
-                "@babel/preset-env",
+                '@babel/preset-env',
                 {
-                  useBuiltIns: "usage"
+                  useBuiltIns: 'usage',
+                  corejs: 3
                 }
               ]
             ]
@@ -36,7 +37,7 @@ module.exports = {
     ]
   },
   output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "[name].js"
+    path: path.resolve(__dirname, 'dist'),
+    filename: '[name].js'
   }
 };

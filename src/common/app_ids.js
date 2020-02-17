@@ -1,7 +1,7 @@
 const appIds = {
-  app1: 1,
-  app2: 2,
-  app3: 3
+  app1: 95,
+  app2: 96,
+  app3: 97
 };
 
 export default appIds;
