@@ -1,12 +1,12 @@
-const path = require("path");
-const glob = require("glob");
-const { execSync, exec } = require("child_process");
-const webpack = require("webpack");
+const path = require('path');
+const glob = require('glob');
+const {execSync, exec} = require('child_process');
+const webpack = require('webpack');
 
-const basePath = path.resolve("src", "apps");
+const basePath = path.resolve('src', 'apps');
 
 // basePath配下の各ディレクトリを複数のentryとする
-const entries = glob.sync("**/index.js", { cwd: basePath }).reduce(
+const entries = glob.sync('**/index.js', {cwd: basePath}).reduce(
   (prev, file) => ({
     ...prev,
     [path.dirname(file)]: path.resolve(basePath, file)
@@ -22,13 +22,13 @@ module.exports = {
         test: /\.m?js$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
           options: {
             presets: [
               [
-                "@babel/preset-env",
+                '@babel/preset-env',
                 {
-                  useBuiltIns: "usage",
+                  useBuiltIns: 'usage',
                   corejs: 3
                 }
               ]
@@ -39,18 +39,15 @@ module.exports = {
     ]
   },
   output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "[name].js"
+    path: path.resolve(__dirname, 'dist'),
+    filename: '[name].js'
   },
   plugins: [
-    new webpack.DefinePlugin({
-      "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV)
-    }),
     {
       // code will be packaged and uploaded to kintone automatically only watch mode
       apply: compiler => {
         compiler.hooks.afterEmit.tapPromise(
-          "upload javascript files",
+          'upload javascript files',
           compilation => {
             if (!compiler.options.watch) return Promise.resolve();
 
@@ -59,14 +56,14 @@ module.exports = {
                 const source = compilation.assets[file];
                 return source.emitted && source.existsAt;
               })
-              .map(file => file.replace(".js", ""));
+              .map(file => file.replace('.js', ''));
 
             const processes = glob
-              .sync(`@(${emittedFiles.join("|")})/customize-manifest.json`, {
+              .sync(`@(${emittedFiles.join('|')})/customize-manifest.json`, {
                 cwd: basePath
               })
               .map(file => {
-                console.log("\nuploading... ", file);
+                console.log('\nuploading... ', file);
                 return exec(
                   `yarn upload ${path.resolve(basePath, file)}`,
                   (err, stdout, stderr) => {
