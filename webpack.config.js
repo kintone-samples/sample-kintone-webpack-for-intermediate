@@ -53,8 +53,16 @@ module.exports = {
           "upload javascript files",
           compilation => {
             if (!compiler.options.watch) return Promise.resolve();
+
+            const emittedFiles = Object.keys(compilation.assets)
+              .filter(file => {
+                const source = compilation.assets[file];
+                return source.emitted && source.existsAt;
+              })
+              .map(file => file.replace(".js", ""));
+
             const processes = glob
-              .sync("**/customize-manifest.json", {
+              .sync(`@(${emittedFiles.join("|")})/customize-manifest.json`, {
                 cwd: basePath
               })
               .map(file => {
