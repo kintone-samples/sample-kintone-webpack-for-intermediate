@@ -8,7 +8,8 @@
     "build": "webpack",
     "lint": "eslint src/**/*.js",
     "fix": "eslint src/**/*.js --fix",
-    "upload": "source .env && npx kintone-customize-uploader --domain $DOMAIN --username $USER --password $PASSWORD "
+    "upload": "source .env && npx kintone-customize-uploader --domain $DOMAIN --username $USER --password $PASSWORD ",
+    "upload_all": "for manifest in `ls src/apps/**/customize-manifest.json`; do yarn upload $manifest; done"
   },
   "repository": {
     "type": "git",

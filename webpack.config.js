@@ -44,7 +44,7 @@ module.exports = {
   },
   plugins: [
     {
-      // code will be packaged and uploaded to kintone automatically only watch mode
+      // watchモードのとき再ビルドされたものをアップロードする
       apply: compiler => {
         compiler.hooks.afterEmit.tapPromise(
           'upload javascript files',
