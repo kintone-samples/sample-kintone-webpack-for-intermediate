@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
     "lint": "eslint src/**/*.js",
-    "fix": "eslint src/**/*.js --fix"
+    "fix": "eslint src/**/*.js --fix",
+    "upload": "babel-node --presets @babel/env -r dotenv/config uploader.js"
   },
   "repository": {
     "type": "git",
@@ -26,9 +27,13 @@
   "homepage": "https://github.com/yokotaso/sample-kintone-webpack#readme",
   "devDependencies": {
     "@babel/core": "^7.2.2",
+    "@babel/node": "^7.8.7",
     "@babel/preset-env": "^7.3.1",
     "@cybozu/eslint-config": "^8.0.0",
+    "@kintone/customize-uploader": "^3.0.1",
     "babel-loader": "^8.0.5",
+    "dotenv": "^8.2.0",
+    "env-cmd": "^10.1.0",
     "eslint": "^6.6.0",
     "eslint-plugin-prettier": "^3.1.1",
     "glob": "^7.1.6",

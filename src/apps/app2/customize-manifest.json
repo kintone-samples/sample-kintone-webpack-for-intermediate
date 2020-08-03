@@ -1,0 +1,11 @@
+{
+  "app": "111",
+  "scope": "ALL",
+  "desktop": {
+    "js": ["dist/app2.js"],
+    "css": []
+  },
+  "mobile": {
+    "js": []
+  }
+}
