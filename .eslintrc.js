@@ -15,13 +15,14 @@ module.exports = {
   // グローバル変数の定義
   // --------------------------------
   globals: {
-    garoon: "readonly"
+    garoon: "readonly",
   },
 
   // --------------------------------
   //  ルール
   // --------------------------------
   rules: {
-    quotes: ["error", "single"]
-  }
+    quotes: ["error", "single"],
+    "require-atomic-updates": "off",
+  },
 };
