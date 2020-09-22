@@ -1,0 +1,11 @@
+{
+  "app": "121",
+  "scope": "ALL",
+  "desktop": {
+    "js": ["dist/quote_ts.js"],
+    "css": []
+  },
+  "mobile": {
+    "js": []
+  }
+}

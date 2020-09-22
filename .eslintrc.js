@@ -26,6 +26,9 @@ module.exports = {
     "require-atomic-updates": "off",
   },
 
+  // --------------------------------
+  //  TypeScript用の設定
+  // --------------------------------
   overrides: [
     {
       files: ["*.ts", "*.tsx"],
