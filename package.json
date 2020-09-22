@@ -43,6 +43,6 @@
   "dependencies": {
     "@kintone/rest-api-client": "^1.5.0",
     "core-js": "^3.6.4",
-    "jquery": "^3.4.1"
+    "jquery": "^3.5.0"
   }
 }
