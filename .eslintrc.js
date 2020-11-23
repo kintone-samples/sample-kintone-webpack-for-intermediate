@@ -47,6 +47,7 @@ module.exports = {
       rules: {
         quotes: ["error", "single"],
         "require-atomic-updates": "off",
+        "no-undef": "off",
       },
     },
   ],
