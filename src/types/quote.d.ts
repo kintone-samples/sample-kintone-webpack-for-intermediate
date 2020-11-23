@@ -1,4 +1,4 @@
-declare namespace Kintone.Types {
+declare namespace KintoneTypes {
   interface Quote {
     No: kintone.fieldTypes.SingleLineText;
     文字列__1行_: kintone.fieldTypes.SingleLineText;

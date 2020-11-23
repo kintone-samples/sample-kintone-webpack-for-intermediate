@@ -1,4 +1,21 @@
-import {KintoneRestAPIClient} from '@kintone/rest-api-client';
+import {KintoneRestAPIClient, KintoneRecordField} from '@kintone/rest-api-client';
+
+// 製品アプリの型を定義
+type SavedProduct = {
+  $id: KintoneRecordField.ID;
+  $revision: KintoneRecordField.Revision;
+  更新者: KintoneRecordField.Modifier;
+  作成者: KintoneRecordField.Creator;
+  レコード番号: KintoneRecordField.RecordNumber;
+  更新日時: KintoneRecordField.UpdatedTime;
+  作成日時: KintoneRecordField.CreatedTime;
+  ラジオボタン: KintoneRecordField.RadioButton;
+  文字列__複数行__0: KintoneRecordField.MultiLineText;
+  型番: KintoneRecordField.SingleLineText;
+  商品名: KintoneRecordField.SingleLineText;
+  数値: KintoneRecordField.Number;
+  在庫数: KintoneRecordField.Number;
+}
 
 // 商品アプリのアプリIDを入力してください
 const productsAppId = 122;
@@ -6,7 +23,7 @@ const productsAppId = 122;
 const events = ['app.record.create.submit', 'app.record.edit.submit'];
 
 kintone.events.on(events, async (event) => {
-  const record = event.record as Kintone.Types.Quote;
+  const record = event.record as KintoneTypes.Quote;
 
   // kintoneへ接続するためのインスタンスを作成
   const client = new KintoneRestAPIClient({});
@@ -27,7 +44,7 @@ kintone.events.on(events, async (event) => {
   // テーブルに入っている商品レコードを取得
   let products;
   try {
-    products = await client.record.getRecords({
+    products = await client.record.getRecords<SavedProduct>({
       app: productsAppId,
       query: `型番 in (${record.見積明細.value
         .map((row) => `"${row.value.型番.value}"`)
