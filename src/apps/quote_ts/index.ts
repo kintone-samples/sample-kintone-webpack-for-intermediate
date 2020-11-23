@@ -44,6 +44,7 @@ kintone.events.on(events, async (event) => {
   // テーブルに入っている商品レコードを取得
   let products;
   try {
+    // Genericに型を指定することで, products変数を利用する際に型推論ができる
     products = await client.record.getRecords<SavedProduct>({
       app: productsAppId,
       query: `型番 in (${record.見積明細.value
