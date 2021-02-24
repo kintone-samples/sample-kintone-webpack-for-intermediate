@@ -25,4 +25,30 @@ module.exports = {
     quotes: ["error", "single"],
     "require-atomic-updates": "off",
   },
+
+  // --------------------------------
+  //  TypeScript用の設定
+  // --------------------------------
+  overrides: [
+    {
+      files: ["*.ts", "*.tsx"],
+      extends: [
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended",
+        "prettier/@typescript-eslint",
+        "@cybozu",
+        "@cybozu/eslint-config/globals/kintone",
+      ],
+      plugins: ["@typescript-eslint"],
+      parser: "@typescript-eslint/parser",
+      parserOptions: {
+        sourceType: "module",
+      },
+      rules: {
+        quotes: ["error", "single"],
+        "require-atomic-updates": "off",
+        "no-undef": "off",
+      },
+    },
+  ],
 };

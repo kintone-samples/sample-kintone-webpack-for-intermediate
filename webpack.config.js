@@ -1,15 +1,15 @@
 const path = require('path');
 const glob = require('glob');
-const {execSync, exec} = require('child_process');
-const webpack = require('webpack');
+const {exec} = require('child_process');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 const basePath = path.resolve('src', 'apps');
 
 // basePath配下の各ディレクトリを複数のentryとする
-const entries = glob.sync('**/index.js', {cwd: basePath}).reduce(
+const entries = glob.sync('**/index.ts', {cwd: basePath}).reduce(
   (prev, file) => ({
     ...prev,
-    [path.dirname(file)]: path.resolve(basePath, file)
+    [path.dirname(file)]: path.resolve(basePath, file),
   }),
   {}
 );
@@ -29,40 +29,41 @@ module.exports = {
                 '@babel/preset-env',
                 {
                   useBuiltIns: 'usage',
-                  corejs: 3
-                }
-              ]
-            ]
-          }
-        }
-      }
-    ]
+                  corejs: 3,
+                },
+              ],
+            ],
+          },
+        },
+      },
+    ],
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].js'
+    filename: '[name].js',
   },
   plugins: [
+    new ForkTsCheckerWebpackPlugin(),
     {
       // watchモードのとき再ビルドされたものをアップロードする
-      apply: compiler => {
+      apply: (compiler) => {
         compiler.hooks.afterEmit.tapPromise(
           'upload javascript files',
-          compilation => {
+          (compilation) => {
             if (!compiler.options.watch) return Promise.resolve();
 
             const emittedFiles = Object.keys(compilation.assets)
-              .filter(file => {
+              .filter((file) => {
                 const source = compilation.assets[file];
                 return source.emitted && source.existsAt;
               })
-              .map(file => file.replace('.js', ''));
+              .map((file) => file.replace('.js', ''));
 
             const processes = glob
               .sync(`@(${emittedFiles.join('|')})/customize-manifest.json`, {
-                cwd: basePath
+                cwd: basePath,
               })
-              .map(file => {
+              .map((file) => {
                 console.log('\nuploading... ', file);
                 return exec(
                   `yarn upload ${path.resolve(basePath, file)}`,
@@ -75,7 +76,7 @@ module.exports = {
             return Promise.all(processes);
           }
         );
-      }
-    }
-  ]
+      },
+    },
+  ],
 };
