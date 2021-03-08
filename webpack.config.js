@@ -6,7 +6,7 @@ const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const basePath = path.resolve('src', 'apps');
 
 // basePath配下の各ディレクトリを複数のentryとする
-const entries = glob.sync('**/index.ts', {cwd: basePath}).reduce(
+const entries = glob.sync('**/index.+(js|ts)', {cwd: basePath}).reduce(
   (prev, file) => ({
     ...prev,
     [path.dirname(file)]: path.resolve(basePath, file),
@@ -36,6 +36,14 @@ module.exports = {
           },
         },
       },
+      {
+        test: /\.tsx?$/,
+        loader: 'ts-loader',
+        exclude: /node_modules/,
+        options: {
+          transpileOnly: true
+        }
+      }
     ],
   },
   output: {
