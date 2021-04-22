@@ -34,6 +34,8 @@
     "@cybozu/eslint-config": "^8.0.0",
     "@kintone/customize-uploader": "^3.0.1",
     "@kintone/dts-gen": "^3.0.5",
+    "@types/react": "^17.0.3",
+    "@types/react-dom": "^17.0.3",
     "@typescript-eslint/eslint-plugin": "^4.2.0",
     "@typescript-eslint/parser": "^4.2.0",
     "babel-loader": "^8.1.0",
@@ -51,6 +53,8 @@
   "dependencies": {
     "@kintone/rest-api-client": "^1.7.1",
     "core-js": "^3.6.4",
-    "jquery": "^3.5.1"
+    "jquery": "^3.5.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   }
 }
