@@ -34,8 +34,8 @@ const ChecklistComponent: React.FC<{records: KintoneTypes.SavedCustomer[]}> = ({
   };
 
   // 要素の定義と返却
-  return <div>
-    <div><button onClick={buttonHandler}>現在選択されているものは...</button></div>
+  return <div style={{margin: '8px 16px'}}>
+    <div><button onClick={buttonHandler}>選択されている顧客を表示する</button></div>
     {records.map((record) => {
       return <div style={{margin: '4px 8px'}} key={record.$id.value}>
         <label>
