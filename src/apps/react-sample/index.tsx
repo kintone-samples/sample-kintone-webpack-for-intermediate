@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useState} from 'react';
 import ReactDOM from 'react-dom';
 
 // Componentの定義
@@ -7,17 +7,17 @@ const ChecklistComponent: React.FC<{records: KintoneTypes.SavedCustomer[]}> = ({
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
 
   // ボタンを押したときのハンドラ
-  const buttonHandler = useCallback(() => {
+  const buttonHandler = () => {
     if (selectedIds.length === 0) {
       alert('何も選択されていません。');
       return;
     }
     // なにか選択されていれば、会社名を表示する。
     alert(`${selectedIds.map((id) => records.find((r) => r.$id.value === id)?.会社名.value).join('\n')}`);
-  }, [selectedIds]);
+  };
 
   // チェックボックスを押したときのハンドラ
-  const checkboxHandler = useCallback((recordId: string) => (e:React.ChangeEvent<HTMLInputElement>) => {
+  const checkboxHandler = (recordId: string) => (e:React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked) {
       // チェックされた場合、チェックしたIDを含めて新しい配列を返却
       setSelectedIds((current) => [...current, recordId]);
@@ -31,7 +31,7 @@ const ChecklistComponent: React.FC<{records: KintoneTypes.SavedCustomer[]}> = ({
         return [...current.slice(0, targetIndex), ...current.slice(targetIndex + 1)];
       });
     }
-  }, []);
+  };
 
   // 要素の定義と返却
   return <div>
