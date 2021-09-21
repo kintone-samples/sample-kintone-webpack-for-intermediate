@@ -110,7 +110,9 @@ kintone.events.on(events, async (event) => {
       }),
     });
   } catch (error) {
-    event.error = `アップデートに失敗しました。${error.message}`;
+    if (error instanceof Error) {
+      event.error = `アップデートに失敗しました。${error.message}`;
+    }
     return event;
   }
 
