@@ -1,7 +1,6 @@
 const path = require('path');
 const glob = require('glob');
 const {exec} = require('child_process');
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 const basePath = path.resolve('src', 'apps');
 
